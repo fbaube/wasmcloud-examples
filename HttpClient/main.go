@@ -5,7 +5,6 @@ package main
 import (
 	"io"
 	"net/http"
-
 	"go.wasmcloud.dev/component/net/wasihttp"
 )
 
@@ -19,19 +18,18 @@ func init() {
 }
 
 func proxyHandler(w http.ResponseWriter, _ *http.Request) {
-	url := "http://www.randomnumberapi.com/api/v1.0/random?min=100&max=1000&count=5"
+	url := "http://www.randomnumberapi.com/api/v1.0/" +
+		"random?min=100&max=1000&count=5"
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		http.Error(w, "failed to create request", http.StatusBadGateway)
+		http.Error(w, "http.NewRequest failed", http.StatusBadGateway)
 		return
 	}
-
 	resp, err := httpClient.Do(req)
 	if err != nil {
-		http.Error(w, "failed to make outbound request", http.StatusBadGateway)
+		http.Error(w, "can't make outbound request", http.StatusBadGateway)
 		return
 	}
-
 	w.Header().Set("X-Custom-Header", "proxied")
 	w.WriteHeader(resp.StatusCode)
 

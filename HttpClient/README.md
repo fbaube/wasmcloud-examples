@@ -19,11 +19,7 @@ The application...
 
 ## 📦 Dependencies
 
-Before starting, install these (plus Go 1.23+):
-
-- [`tinygo`](https://tinygo.org/getting-started/install/) 
-- [`wasm-tools`](https://github.com/bytecodealliance/wasm-tools#installation) (for Go bindings)
-- [wasmCloud Shell (`wash`)](https://wasmcloud.com/docs/installation) 
+Go 1.23+, tinygo, [`wasm-tools`](https://github.com/bytecodealliance/wasm-tools#installation), [wasmCloud Shell (`wash`)](https://wasmcloud.com/docs/installation) 
 
 ## 👟 Run the example
 
@@ -38,16 +34,6 @@ Change directory to `examples/component/http-client`:
 ```shell
 cd examples/component/http-client
 ```
-
-In addition to the standard elements of a Go project, the example directory includes the following files and directories:
-
-- `build/`: for compiled `.wasm` binaries
-- `gen/`: for Go bindings of
-   [interfaces](https://wasmcloud.com/docs/concepts/interfaces)
-- `wit/`: for WIT packages that define interfaces
-- `wadm.yaml`: declarative application manifest
-- `wasmcloud.lock`: auto-generated lockfile for WIT packages
-- `wasmcloud.toml`: configuration file for a wasmCloud application
 
 ### Start a local development loop
 
@@ -100,12 +86,16 @@ You can stop the `wash dev` process with `Ctrl-C`.
 If `curl`ing produces...
 
 ```text
-failed to invoke `wrpc:http/incoming-handler.handle`: failed to invoke `wrpc:http/incoming-handler@0.1.0.handle`: failed to shutdown synchronous parameter channel: not connected%
+failed to invoke `wrpc:http/incoming-handler.handle`: failed
+to invoke `wrpc:http/incoming-handler@0.1.0.handle`: failed
+to shutdown synchronous parameter channel: not connected%
 ```
 
-...the HTTP server may not have finished starting up. You can check that the application has reached `Deployed` status with `wash app list`. 
+...the HTTP server may not have finished starting up. You can check
+that the application has reached `Deployed` status with `wash app list`. 
 
-If the issue persists, you may have a lingering HTTP server provider running on your system. You can use `pgrep` to check:
+If the issue persists, you may have a lingering HTTP server provider
+running on your system. You can use `pgrep` to check:
 
 ```shell
 pgrep -la ghcr_io
@@ -114,6 +104,3 @@ pgrep -la ghcr_io
 4007604 /tmp/wasmcloudcache/NBCBQOZPJXTJEZDV2VNY32KGEMTLFVP2XJRZJ5FWEJJOXESJXXR2RO46/ghcr_io_wasmcloud_http_server_0_23_1
 ```
 
-## 📖 Further reading
-
-For more on building components, see the [Component Developer Guide](https://wasmcloud.com/docs/developer/components/) in the wasmCloud documentation. 
